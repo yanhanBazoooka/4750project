@@ -190,6 +190,15 @@ VALUES
   ('DRX', 'LCK', 0.55, 4),
   ('MAD Lions', 'EU LEC', 0.58, 4),
   ('100 Thieves', 'NA LCS', 0.61, 3);
+  ('SK Telecom T1', 'LCK', 0.70, 1),
+  ('Samsung Galaxy', 'LCK', 0.65, 2),
+  ('KT Rolster', 'LCK', 0.60, 3),
+  ('Afreeca Freecs', 'LCK', 0.58, 4),
+  ('Rogue', 'EU LEC', 0.62, 2),
+  ('Schalke 04', 'EU LEC', 0.57, 3),
+  ('Team SoloMid', 'NA LCS', 0.68, 1),
+  ('Golden Guardians', 'NA LCS', 0.62, 2),
+  ('Evil Geniuses', 'NA LCS', 0.58, 3);
 
 UPDATE Player
 SET Age = 25
