@@ -62,6 +62,34 @@ BEGIN
 END$$
 DELIMITER ;
 
+-- Create the Sponsor table
+CREATE TABLE Endorse (
+    SponsorName VARCHAR(100),
+    TeamName VARCHAR(100),
+    Price DECIMAL(10, 2),
+    PRIMARY KEY (SponsorName, TeamName),
+    FOREIGN KEY (TeamName) REFERENCES Team(TeamName) ON DELETE CASCADE
+    FOREIGN KEY (SponsorName) REFERENCES Sponsor(SponsorName) ON DELETE CASCADE
+);
+
+-- Create the Plays table
+CREATE TABLE Plays (
+    PlayerID INT,
+    ChampionName VARCHAR(100),
+    PRIMARY KEY (PlayerID, ChampionName),
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE,
+    FOREIGN KEY (ChampionName) REFERENCES Champion(ChampionName) ON DELETE CASCADE
+);
+
+-- Create the Uses table
+CREATE TABLE Uses (
+    EquipmentName VARCHAR(100),
+    ChampionName VARCHAR(100),
+    PRIMARY KEY (EquipmentName, ChampionName),
+    FOREIGN KEY (EquipmentName) REFERENCES Equipment(EquipmentName) ON DELETE CASCADE,
+    FOREIGN KEY (ChampionName) REFERENCES Champion(ChampionName) ON DELETE CASCADE
+);
+
 -- Example of data retrievals:
 
 -- Select the player info given the PlayerID as 'Faker'
@@ -190,6 +218,38 @@ VALUES
   ('DRX', 'LCK', 0.55, 4),
   ('MAD Lions', 'EU LEC', 0.58, 4),
   ('100 Thieves', 'NA LCS', 0.61, 3);
+
+INSERT INTO Endorse (SponsorName, TeamName, Price)
+VALUES 
+  ('Intel', 'T1', 600000),
+  ('Twitch', 'G2 Esports', 400000),
+  ('Adidas', 'Fnatic', 800000),
+  ('Mastercard', 'Gen.G', 550000),
+  ('Gillette', 'Cloud9', 350000),
+  ('Red Bull', 'JD Gaming', 450000),
+  ('Nike', 'Top Esports', 750000),
+  ('Coca-Cola', 'DRX', 500000),
+  ('Mercedes-Benz', 'MAD Lions', 400000),
+  ('HyperX', 'Team Liquid', 300000);
+
+INSERT INTO Plays (PlayerID, ChampionName)
+VALUES 
+  (101, 'LeBlanc'),
+  (102, 'Lucian'),
+  (103, 'Zoe'),
+  (104, 'Sivir'),
+  (105, 'Lee Sin'),
+  (106, 'Gangplank'),
+  (107, 'Yasuo'),
+  (108, 'Varus'),
+  (109, 'Thresh'),
+  (110, 'Akali'),
+  (111, 'Kai''Sa'),
+  (112, 'Syndra'),
+  (113, 'Galio'),
+  (114, 'Riven'),
+  (115, 'Ryze');
+
 
 UPDATE Player
 SET Age = 25
