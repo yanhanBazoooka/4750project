@@ -178,6 +178,19 @@ VALUES
   ('OPL Split 1 2024', 100000),
   ('PCS Summer 2024', 300000);
 
+INSERT INTO Team (TeamName, LeagueName, WinRate, Rank)
+VALUES 
+  ('T1', 'LCK', 0.70, 1),
+  ('G2 Esports', 'EU LEC', 0.65, 2),
+  ('Fnatic', 'EU LEC', 0.60, 3),
+  ('Cloud9', 'NA LCS', 0.63, 1),
+  ('Team Liquid', 'NA LCS', 0.59, 2),
+  ('JD Gaming', 'LPL', 0.68, 1),
+  ('Top Esports', 'LPL', 0.65, 2),
+  ('DRX', 'LCK', 0.55, 4),
+  ('MAD Lions', 'EU LEC', 0.58, 4),
+  ('100 Thieves', 'NA LCS', 0.61, 3);
+
 UPDATE Player
 SET Age = 25
 WHERE Name = 'Faker';
