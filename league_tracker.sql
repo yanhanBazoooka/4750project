@@ -177,8 +177,8 @@ VALUES
   (107, 'Perkz', 'Mid', 'Yasuo', 22, 'Croatia', 0.61),
   (108, 'Deft', 'ADC', 'Varus', 24, 'Korea', 0.62),
   (109, 'SwordArt', 'Support', 'Thresh', 23, 'Taiwan', 0.60),
-  (110, 'Nuguri', 'Top', 'Akali', 21, 'Korea', 0.59);
-  (111, 'Uzi', 'ADC', 'Kai'Sa', 25, 'China', 0.65),
+  (110, 'Nuguri', 'Top', 'Akali', 21, 'Korea', 0.59)，
+  (111, 'Uzi', 'ADC', 'KaiSa', 25, 'China', 0.65),
   (112, 'Bjergsen', 'Mid', 'Syndra', 25, 'Denmark', 0.58),
   (113, 'Bdd', 'Mid', 'LeBlanc', 24, 'Korea', 0.62),
   (114, 'Clearlove', 'Jungle', 'Elise', 28, 'China', 0.56),
@@ -191,7 +191,7 @@ VALUES
   (121, 'Doinb', 'Mid', 'Galio', 25, 'China', 0.60),
   (122, 'Smeb', 'Top', 'Riven', 27, 'Korea', 0.57),
   (123, 'Xiaohu', 'Mid', 'Ryze', 24, 'China', 0.61),
-  (124, 'JackeyLove', 'ADC', 'Kai'Sa', 20, 'China', 0.64),
+  (124, 'JackeyLove', 'ADC', 'KaiSa', 20, 'China', 0.64),
   (125, 'Clid', 'Jungle', 'Graves', 23, 'Korea', 0.58),
   (126, 'Rookie', 'Mid', 'Orianna', 22, 'China', 0.62),
   (127, 'Karsa', 'Jungle', 'Lee Sin', 23, 'Taiwan', 0.57),
@@ -243,7 +243,7 @@ VALUES
   ('Top Esports', 'LPL', 0.65, 2),
   ('DRX', 'LCK', 0.55, 4),
   ('MAD Lions', 'EU LEC', 0.58, 4),
-  ('100 Thieves', 'NA LCS', 0.61, 3);
+  ('100 Thieves', 'NA LCS', 0.61, 3)，
   ('SK Telecom T1', 'LCK', 0.70, 1),
   ('Samsung Galaxy', 'LCK', 0.65, 2),
   ('KT Rolster', 'LCK', 0.60, 3),
