@@ -90,6 +90,14 @@ CREATE TABLE Uses (
     FOREIGN KEY (ChampionName) REFERENCES Champion(ChampionName) ON DELETE CASCADE
 );
 
+CREATE TABLE Uses (
+    PlayerID INT,
+    EquipmentName VARCHAR(100),
+    PRIMARY KEY (PlayerID, EquipmentName),
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
+    FOREIGN KEY (EquipmentName) REFERENCES Equipment(EquipmentName)
+);
+
 -- Example of data retrievals:
 
 -- Select the player info given the PlayerID as 'Faker'
@@ -285,6 +293,19 @@ VALUES
   (114, 'Riven'),
   (115, 'Ryze');
 
+
+INSERT INTO Uses (PlayerID, EquipmentName)
+VALUES 
+  (101, 'Logitech G Pro Wireless Mouse'),
+  (101, 'Corsair K95 RGB Keyboard'),
+  (102, 'Razer DeathAdder Mouse'),
+  (102, 'SteelSeries Apex Pro Keyboard'),
+  (103, 'HyperX Pulsefire FPS Mouse'),
+  (103, 'Razer BlackWidow Keyboard'),
+  (104, 'Logitech G502 Hero Mouse'),
+  (104, 'Corsair K70 RGB MK.2 Keyboard'),
+  (105, 'SteelSeries Rival 600 Mouse'),
+  (105, 'HyperX Alloy FPS Keyboard');
 
 UPDATE Player
 SET Age = 25
