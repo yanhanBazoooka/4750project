@@ -178,6 +178,32 @@ VALUES
   (108, 'Deft', 'ADC', 'Varus', 24, 'Korea', 0.62),
   (109, 'SwordArt', 'Support', 'Thresh', 23, 'Taiwan', 0.60),
   (110, 'Nuguri', 'Top', 'Akali', 21, 'Korea', 0.59);
+  (111, 'Uzi', 'ADC', 'Kai'Sa', 25, 'China', 0.65),
+  (112, 'Bjergsen', 'Mid', 'Syndra', 25, 'Denmark', 0.58),
+  (113, 'Bdd', 'Mid', 'LeBlanc', 24, 'Korea', 0.62),
+  (114, 'Clearlove', 'Jungle', 'Elise', 28, 'China', 0.56),
+  (115, 'Perkz2', 'ADC', 'Ezreal', 23, 'Croatia', 0.60),
+  (116, 'Huni', 'Top', 'Rumble', 24, 'Korea', 0.57),
+  (117, 'Biofrost', 'Support', 'Braum', 24, 'Canada', 0.59),
+  (118, 'Bang', 'ADC', 'Jhin', 25, 'Korea', 0.59),
+  (119, 'Mata', 'Support', 'Alistar', 28, 'Korea', 0.56),
+  (120, 'Faker3', 'Mid', 'Syndra', 25, 'Korea', 0.63),
+  (121, 'Doinb', 'Mid', 'Galio', 25, 'China', 0.60),
+  (122, 'Smeb', 'Top', 'Riven', 27, 'Korea', 0.57),
+  (123, 'Xiaohu', 'Mid', 'Ryze', 24, 'China', 0.61),
+  (124, 'JackeyLove', 'ADC', 'Kai'Sa', 20, 'China', 0.64),
+  (125, 'Clid', 'Jungle', 'Graves', 23, 'Korea', 0.58),
+  (126, 'Rookie', 'Mid', 'Orianna', 22, 'China', 0.62),
+  (127, 'Karsa', 'Jungle', 'Lee Sin', 23, 'Taiwan', 0.57),
+  (128, 'ShowMaker', 'Mid', 'Akali', 20, 'Korea', 0.65),
+  (129, 'Hylissang', 'Support', 'Pyke', 25, 'Romania', 0.59),
+  (130, 'Chovy', 'Mid', 'Azir', 20, 'Korea', 0.63),
+  (131, 'Ruler', 'ADC', 'Ezreal', 22, 'Korea', 0.60),
+  (132, 'Canyon', 'Jungle', 'Nidalee', 21, 'Korea', 0.64),
+  (133, 'Carzzy', 'ADC', 'Samira', 20, 'Slovenia', 0.58),
+  (134, 'BeryL', 'Support', 'Thresh', 23, 'Korea', 0.61),
+  (135, 'GALA', 'ADC', 'Aphelios', 20, 'China', 0.63),
+  (136, 'Ning', 'Jungle', 'Zac', 24, 'China', 0.57);
 
 
 INSERT INTO Sponsor (SponsorName, Industry, Country)
