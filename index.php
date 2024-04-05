@@ -1,55 +1,51 @@
-<?php include('header.php'); ?>
+<?php
+include('header.php');
+include('connect-db.php'); // This will set $db to the PDO object
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
 
 <main>
+    <h2>Player List</h2>
+    <!-- Add New Player Button -->
+    <button onclick="window.location.href = 'add-player.php';">Add New Player</button>
+    
+    <!-- Player Table -->
     <table>
         <thead>
             <tr>
-                <th>League</th>
-                <th>Team</th>
+                <th>PlayerID</th>
+                <th>Name</th>
                 <th>Position</th>
-                <th>Player</th>
-                <th>Kill</th>
-                <th>Death</th>
-                <th>Assist</th>
-                <!-- More headers -->
+                <th>Most Used Champion</th>
+                <th>Age</th>
+                <th>Nationality</th>
+                <th>Win Rate</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            include('connect-db.php');
-
-            $sql = "SELECT * FROM stats_table"; // Replace with your actual table name
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                            <td>{$row['league']}</td>
-                            <td>{$row['team']}</td>
-                            <td>{$row['position']}</td>
-                            <td>{$row['player']}</td>
-                            <td>{$row['kill']}</td>
-                            <td>{$row['death']}</td>
-                            <td>{$row['assist']}</td>
-                            <!-- More data -->
-                          </tr>";
+            try {
+                $query = "SELECT PlayerID, Name, Position, MostUsedChampion, Age, Nationality, WinRate FROM Player";
+                $statement = $db->query($query); // Use $db, the PDO object from connect-db.php
+                
+                foreach ($statement as $row) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['PlayerID']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Name']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Position']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['MostUsedChampion']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Age']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Nationality']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['WinRate']) . "</td>";
+                    echo "</tr>";
                 }
-            } else {
-                echo "<tr><td colspan='7'>No results found</td></tr>";
+            } catch (PDOException $e) {
+                echo "<tr><td colspan='7'>Error: " . $e->getMessage() . "</td></tr>";
             }
-            $conn->close();
             ?>
         </tbody>
     </table>
 </main>
 
 <?php include('footer.html'); ?>
-<footer class="primary-footer bg-dark p-2" style="margin-bottom: 0rem;">
-  <small class="copyright" style="color:white">&copy; Your name</small>
-  
-  <div style="padding:6px 16px 20px 6px">
-    <small class="copyright" style="color:white">        
-    League of Legends Pro Stats
-    </small>
-  </div>
-</footer>
