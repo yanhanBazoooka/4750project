@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('includes/header.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Execute the statement and check for errors
     if($stmt->execute()){
         echo "<p>New player added successfully!</p>";
-        // Redirect back to the index.php
-        header("Location: index.php");
+        // Redirect back to the stats.php
+        header("Location: stats.php");
         exit();
     } else {
         echo "<p>Error adding player: " . $stmt->errorInfo()[2] . "</p>";
