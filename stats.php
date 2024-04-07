@@ -14,7 +14,7 @@ include('includes/connect-db.php');
 <header>
     <h1>League of Legend Pro Stats</h1>
     <div id="logo">
-        <!-- Insert your logo here -->
+        <img src="images/lol.png" alt="League of Legend Pro Stats Logo" />
     </div>
     <nav id="section-nav">
         <!-- Navigation items (possibly dynamic based on your database contents) -->
@@ -25,10 +25,21 @@ include('includes/connect-db.php');
     <!-- League selection buttons or dropdowns -->
 </div>
 
+
+
+
 <div id="search-bar">
     <!-- Search form -->
     <input type="text" placeholder="Search for player, team, game...">
     <button type="submit">Search</button>
+</div>
+<div id="country-bar">
+    <button class="country-button" id="country1"><img src="images/cn.png" alt="cn Flag">LPL</button>
+    <button class="country-button" id="country2"><img src="images/kr.png" alt=" kr Flag">LCK</button>
+    <button class="country-button" id="country3"><img src="images/eu.jpg" alt="eu Flag">LEC</button>
+    <button class="country-button" id="country4"><img src="images/us.png" alt="us Flag">LCS</button>
+    <button class="country-button" id="country5"><img src="images/viet.png" alt="viet Flag">VCS</button>
+    <button class="country-button" id="country6"><img src="images/world.jpg" alt="world Flag">Others</button>
 </div>
 
 <main>
@@ -70,8 +81,8 @@ include('includes/connect-db.php');
 </main>
 
 
-
 </body>
     <img src="images/lol.png" alt="Description" id="top-left-image">
 
 </html>
+
