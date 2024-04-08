@@ -45,7 +45,7 @@ include('includes/connect-db.php');
 <main>
     <h2>Player List</h2>
     <button onclick="window.location.href = 'add-player.php';">Add New Player</button>
-
+    <button onclick="window.location.href = 'delete_data.php';">Remove Player</button>
     <!-- Player Table -->
     <table>
         <thead>
