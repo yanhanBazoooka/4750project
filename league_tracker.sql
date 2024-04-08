@@ -20,7 +20,7 @@ CREATE TABLE Equipment (
 );
 
 CREATE TABLE Player (
-    PlayerID INT PRIMARY KEY,
+    PlayerID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(100),
     Position VARCHAR(50),
     MostUsedChampion VARCHAR(100),
@@ -28,6 +28,7 @@ CREATE TABLE Player (
     Nationality VARCHAR(100),
     WinRate DECIMAL(5,2) CHECK (WinRate >= 0 AND WinRate <= 1) -- Check constraint for WinRate
 );
+
 
 CREATE TABLE Champion (
     ChampionName VARCHAR(100) PRIMARY KEY,

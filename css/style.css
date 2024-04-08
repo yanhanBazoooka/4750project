@@ -1,0 +1,158 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+    background-color: #FFC0CB; /* Soft pink background */
+    display: flex;
+    align-items: center; /* This will vertically center align items */
+    justify-content: space-between; /* This separates the logo and the nav */
+    padding: 10px; /* Adjust as needed */
+}
+
+header h1 {
+    flex-grow: 1; /* Allows the title to take up the available space */
+    margin-left: 185px;
+    color: rgb(22, 32, 216);
+    font-family: AppleGothic;
+    /* Other styles as above */
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8d7da; /* Replace with the desired hex color code for overall background */
+}
+
+/*header {*/
+
+/*    padding: 10px;*/
+/*    color: white;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*}*/
+
+#logo {
+    /* Add styles for your logo here */
+}
+
+#section-nav {
+    /* Style your navigation items here */
+}
+
+#league-selector {
+    /* Style for league selection buttons/dropdown */
+}
+#search-bar input[type="text"] {
+    width: 60%; /* Adjust the width as needed */
+    padding: 10px 15px;
+    font-size: 1.2em; /* Makes the text inside the input larger */
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 30px; /* pushes the search bar down from the top */
+    margin-left: 190px;
+    margin-right: auto;
+}
+
+#search-bar button {
+    padding: 10px 20px;
+    font-size: 1.2em; /* Matches the text size of the input */
+    /* other button styles */
+}
+
+main {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #FFC0CB; /* Soft pink background */
+    color: #000000; /* Black text */
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #000; /* Black border for the table */
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f7f7f7;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+button {
+    background-color: #000000; /* Black background */
+    color: white;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#logo img {
+    max-height: 150px; /* Adjust based on your preference */
+    max-width: 150px; /* Adjust based on your preference */
+}
+
+/* Additional styles to position the logo within the header */
+header {
+    position: relative; /* This ensures that absolute positioning is relative to the header */
+    /* ... other header styles ... */
+}
+
+#logo {
+    position: absolute;
+    top: 5px; /* Adjust to align it properly within the header */
+    left: 10px; /* Adjust based on your design */
+}
+#country-bar {
+    display: flex;
+    justify-content: space-around; /* Distribute space evenly around the buttons */
+    padding: 10px; /* Add some padding around the bar */
+    margin-top: 0px; /* Space below the search bar or any preceding content */
+    background-color: #FFC0CB; /* Soft pink background */
+}
+
+.country-button {   
+    padding: 10px 10px;
+    border: none;
+    background-color: #f8d7da; /* Replace with the desired hex color code for overall background */
+    color: #000; /* Change #FFFFFF to whatever color you want the text to be */
+    font-size: 16px; /* Increase the font size as desired */
+    font-weight: bold; /* This makes the text bold */
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* Align the flag and text vertically */
+}
+
+.country-button img {
+    width: 25px; /* Set a fixed width for flags */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between the flag and the text */
+}
+
+/* Add hover effect for buttons */
+.country-button:hover {
+    background-color: #f8d7da; /* Replace with the desired hex color code for overall background */
+}
