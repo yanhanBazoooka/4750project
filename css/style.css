@@ -1,0 +1,147 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+    background-color: #FFC0CB;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+header h1 {
+    flex-grow: 1;
+    margin-left: 185px;
+    color: rgb(22, 32, 216);
+    font-family: AppleGothic;
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8d7da;
+}
+
+
+#logo {
+
+}
+
+#section-nav {
+
+}
+
+#league-selector {
+
+}
+#search-bar input[type="text"] {
+    width: 60%;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 30px;
+    margin-left: 190px;
+    margin-right: auto;
+}
+
+#search-bar button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+}
+
+main {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #FFC0CB;
+    color: #000000;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #000;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f7f7f7;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+button {
+    background-color: #000000;
+    color: white;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#logo img {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+
+header {
+    position: relative;
+}
+
+#logo {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+#country-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    margin-top: 0px;
+    background-color: #FFC0CB;
+}
+
+.country-button {   
+    padding: 10px 10px;
+    border: none;
+    background-color: #f8d7da;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.country-button img {
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+}
+
+w
+.country-button:hover {
+    background-color: #f8d7da;
+}
