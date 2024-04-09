@@ -1,5 +1,6 @@
 <?php
 include('includes/header.php');
+include('includes/connect-db.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -8,16 +9,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include('connect-db.php');
 
     // Prepare the SQL statement with placeholders for the values to prevent SQL injection
-    $sql = "INSERT INTO Player (Name, Position, MostUsedChampion, Age, Nationality, WinRate) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO Player (PlayerID, Name, Position, MostUsedChampion, Age, Nationality, WinRate) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $db->prepare($sql);
 
     // Bind the form values to the placeholders in the SQL statement
-    $stmt->bindParam(1, $_POST['Name']);
-    $stmt->bindParam(2, $_POST['Position']);
-    $stmt->bindParam(3, $_POST['MostUsedChampion']);
-    $stmt->bindParam(4, $_POST['Age']);
-    $stmt->bindParam(5, $_POST['Nationality']);
-    $stmt->bindParam(6, $_POST['WinRate']);
+    $stmt->bindParam(1, $_POST['PlayerID']);
+    $stmt->bindParam(2, $_POST['Name']);
+    $stmt->bindParam(3, $_POST['Position']);
+    $stmt->bindParam(4, $_POST['MostUsedChampion']);
+    $stmt->bindParam(5, $_POST['Age']);
+    $stmt->bindParam(6, $_POST['Nationality']);
+    $stmt->bindParam(7, $_POST['WinRate']);
 
     // Execute the statement and check for errors
     if($stmt->execute()){
@@ -37,6 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!-- Form for adding a new player -->
 <form action="add-player.php" method="post">
+    <label for="PlayerID">PlayerID:</label>
+    <input type="text" id="PlayerID" name="PlayerID" required>
+
     <label for="Name">Name:</label>
     <input type="text" id="Name" name="Name" required>
 

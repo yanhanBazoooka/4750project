@@ -17,19 +17,16 @@ include('includes/connect-db.php');
         <img src="images/lol.png" alt="League of Legend Pro Stats Logo" />
     </div>
     <nav id="section-nav">
-        <!-- Navigation items (possibly dynamic based on your database contents) -->
     </nav>
 </header>
 
 <div id="league-selector">
-    <!-- League selection buttons or dropdowns -->
 </div>
 
 
 
 
 <div id="search-bar">
-    <!-- Search form -->
     <input type="text" placeholder="Search for player, team, game...">
     <button type="submit">Search</button>
 </div>

@@ -8,12 +8,12 @@ ini_set('display_errors', 1);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Prepare the SQL statement with placeholders for the values to prevent SQL injection
-    $sql = "DELETE FROM Player WHERE Name = ?";
+    $sql = "DELETE FROM Player WHERE PlayerID = ?";
     # $sql = "INSERT INTO Player (Name, Position, MostUsedChampion, Age, Nationality, WinRate) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $db->prepare($sql);
 
     // Bind the form values to the placeholders in the SQL statement
-    $stmt->bindParam(1, $_POST['Name']);
+    $stmt->bindParam(1, $_POST['PlayerID']);
 
     // Execute the statement and check for errors
     if($stmt->execute()){
@@ -33,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!-- Form for adding a new player -->
 <form action="delete_data.php" method="post">
-    <label for="Name">Name:</label>
-    <input type="text" id="Name" name="Name" required>
+    <label for="PlayerID">PlayerID:</label>
+    <input type="text" id="PlayerID" name="PlayerID" required>
 
     <input type="submit" value="Delete Player">
 </form>

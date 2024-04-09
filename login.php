@@ -12,13 +12,11 @@
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
 
-        // You can now send this profile information to your server to create a session, etc.
         console.log("ID: " + profile.getId());
         console.log("Name: " + profile.getName());
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail());
 
-        // Redirect the user to the main page or perform other actions
         window.location.href = 'stats.php';
     }
 </script>
