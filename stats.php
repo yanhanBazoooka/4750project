@@ -43,6 +43,8 @@ include('includes/connect-db.php');
     <h2>Player List</h2>
     <button onclick="window.location.href = 'add-player.php';">Add New Player</button>
     <button onclick="window.location.href = 'delete_data.php';">Remove Player</button>
+    <button onclick="window.location.href = 'profile.php';">Account Profile</button>
+    <button onclick="window.location.href = 'logout.php';">Logout</button>
     <!-- Player Table -->
     <table>
         <thead>
