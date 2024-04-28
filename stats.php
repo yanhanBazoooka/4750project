@@ -50,6 +50,7 @@ include('includes/connect-db.php');
     <button onclick="location.href='update_player.php';">Update Player</button>
     <button onclick="window.location.href = 'profile.php';">Account Profile</button>
     <button onclick="window.location.href = 'logout.php';">Logout</button>
+    <button onclick="window.location.href='export_players.php'">Export Players to CSV</button>
     <!-- Player Table -->
     <table>
         <thead>
