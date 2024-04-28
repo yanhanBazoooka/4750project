@@ -50,6 +50,12 @@ CREATE TABLE Team (
     FOREIGN KEY (LeagueName) REFERENCES League(LeagueName)
 );
 
+CREATE TABLE roles (
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       role_name VARCHAR(50) NOT NULL
+);
+
+
 -- Create a trigger to enforce the Rank to be lower than the number of teams in the league
 DELIMITER $$
 CREATE TRIGGER CheckRankBeforeInsert BEFORE INSERT ON Team
