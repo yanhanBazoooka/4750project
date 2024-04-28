@@ -1,6 +1,14 @@
 <?php
 include('includes/header.php');
 include('includes/connect-db.php');
+session_start(); // Ensure session is started to access session variables
+
+if (!isset($_SESSION['user_role'])) {
+    header('Location: login.php'); // Redirect to login if no role is set
+    exit();
+}
+
+$is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for admins
 ?>
 
 <!DOCTYPE html>
@@ -23,10 +31,6 @@ include('includes/connect-db.php');
 <div id="league-selector">
 </div>
 
-
-
-
-<!-- Search Bar -->
 <div id="search-bar">
     <form action="search.php" method="get">
         <input type="text" name="search_query" placeholder="Search for a player or a team" required>
@@ -46,7 +50,9 @@ include('includes/connect-db.php');
 <main>
     <h2>Player List</h2>
     <button onclick="window.location.href = 'add-player.php';">Add New Player</button>
-    <button onclick="window.location.href = 'delete_data.php';">Remove Player</button>
+    <?php if ($is_admin): ?>
+        <button onclick="window.location.href = 'delete_player.php';">Remove Player</button>
+    <?php endif; ?>
     <button onclick="location.href='update_player.php';">Update Player</button>
     <button onclick="window.location.href = 'profile.php';">Account Profile</button>
     <button onclick="window.location.href = 'logout.php';">Logout</button>
@@ -85,8 +91,4 @@ include('includes/connect-db.php');
     </table>
 </main>
 
-
-
-
 </html>
-

@@ -1,15 +1,21 @@
 <?php
-// Initialize the session
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
-// Update the following variables
+
+// Database connection
+$db = new PDO('mysql:host=localhost;dbname=league_tracker', 'root', '');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// Google OAuth configuration
 $google_oauth_client_id = '913443120825-98egbqh0vrsgc7510l6te6ouv50lb9sl.apps.googleusercontent.com';
 $google_oauth_client_secret = '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';
 $google_oauth_redirect_uri = 'https://localhost/4750project/google-oauth.php';
 $google_oauth_version = 'v3';
 
-// If the captured code param exists and is valid
 if (isset($_GET['code']) && !empty($_GET['code'])) {
-    // Execute cURL request to retrieve the access token
+    // Exchange code for access token
     $params = [
         'code' => $_GET['code'],
         'client_id' => $google_oauth_client_id,
@@ -25,9 +31,9 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     $response = curl_exec($ch);
     curl_close($ch);
     $response = json_decode($response, true);
-    // Make sure access token is valid
-    if (isset($response['access_token']) && !empty($response['access_token'])) {
-        // Execute cURL request to retrieve the user info associated with the Google account
+
+    if (isset($response['access_token'])) {
+        // Fetch user profile
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/oauth2/' . $google_oauth_version . '/userinfo');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -35,18 +41,33 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         $response = curl_exec($ch);
         curl_close($ch);
         $profile = json_decode($response, true);
-        // Make sure the profile data exists
+
         if (isset($profile['email'])) {
-            $google_name_parts = [];
-            $google_name_parts[] = isset($profile['given_name']) ? preg_replace('/[^a-zA-Z0-9]/s', '', $profile['given_name']) : '';
-            $google_name_parts[] = isset($profile['family_name']) ? preg_replace('/[^a-zA-Z0-9]/s', '', $profile['family_name']) : '';
-            // Authenticate the user
-            session_regenerate_id();
-            $_SESSION['google_loggedin'] = TRUE;
-            $_SESSION['google_email'] = $profile['email'];
-            $_SESSION['google_name'] = implode(' ', $google_name_parts);
-            $_SESSION['google_picture'] = isset($profile['picture']) ? $profile['picture'] : '';
-            header('Location: https://localhost/4750project/stats.php');
+            $email = $profile['email'];
+
+            // Check if user exists and get their role, or create new user
+            $stmt = $db->prepare("SELECT id, role_id FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_role'] = $user['role_id'];
+            } else {
+                // Insert new user with default role (e.g., role_id 1 for regular users)
+                $stmt = $db->prepare("INSERT INTO users (email, role_id) VALUES (?, 1)");
+                $stmt->execute([$email]);
+                $_SESSION['user_id'] = $db->lastInsertId();
+                $_SESSION['user_role'] = 1;  // Default role
+            }
+
+            // Set additional session information
+            $_SESSION['google_loggedin'] = true;
+            $_SESSION['google_email'] = $email;
+
+            // Redirect based on role
+            header('Location: stats.php'); // Redirect to a stats page or wherever appropriate
+            exit;
         } else {
             exit('Could not retrieve profile information! Please try again later!');
         }
@@ -54,7 +75,7 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         exit('Invalid access token! Please try again later!');
     }
 } else {
-    // Define params and redirect to Google Authentication page
+    // Redirect to Google for authentication
     $params = [
         'response_type' => 'code',
         'client_id' => $google_oauth_client_id,
@@ -67,5 +88,3 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     exit;
 }
 ?>
-
-
