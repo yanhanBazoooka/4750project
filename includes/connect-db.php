@@ -33,7 +33,7 @@
 $username = 'root';
 $password = '';
 $host = 'localhost';
-$dbname = 'league_tracker1'; // Replace 'your-database' with your actual database name
+$dbname = 'league_tracker'; // Replace 'your-database' with your actual database name
 $dsn = "mysql:host=$host;dbname=$dbname";
 ////////////////////////////////////////////
 

@@ -29,7 +29,6 @@ CREATE TABLE Player (
     WinRate DECIMAL(5,2) CHECK (WinRate >= 0 AND WinRate <= 1) -- Check constraint for WinRate
 );
 
-
 CREATE TABLE Champion (
     ChampionName VARCHAR(100) PRIMARY KEY,
     GamesPlayed INT,
@@ -127,8 +126,8 @@ VALUES
 
 INSERT INTO League (LeagueName, NumberOfTeams)
 VALUES 
-  ('NA LCS', 10),
-  ('EU LEC', 10),
+  ('LCS', 10),
+  ('LEC', 10),
   ('LCK', 10),
   ('LPL', 16),
   ('CBLOL', 8),
@@ -182,10 +181,10 @@ VALUES
 INSERT INTO Team (TeamName, LeagueName, WinRate, Rank)
 VALUES 
   ('T1', 'LCK', 0.70, 1),
-  ('G2 Esports', 'EU LEC', 0.65, 2),
-  ('Fnatic', 'EU LEC', 0.60, 3),
-  ('Cloud9', 'NA LCS', 0.63, 1),
-  ('Team Liquid', 'NA LCS', 0.59, 2),
+  ('G2 Esports', 'LEC', 0.65, 2),
+  ('Fnatic', 'LEC', 0.60, 3),
+  ('Cloud9', 'LCS', 0.63, 1),
+  ('Team Liquid', 'LCS', 0.59, 2),
   ('JD Gaming', 'LPL', 0.68, 1),
   ('Top Esports', 'LPL', 0.65, 2),
   ('DRX', 'LCK', 0.55, 4),
