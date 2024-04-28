@@ -32,9 +32,12 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
 </div>
 
 <div id="search-bar">
-    <input type="text" placeholder="Search for player, team, game...">
-    <button type="submit">Search</button>
+    <form action="search.php" method="get">
+        <input type="text" name="search_query" placeholder="Search for a player or a team" required>
+        <button type="submit">Search</button>
+    </form>
 </div>
+
 <div id="country-bar">
     <button class="country-button" id="country1" onclick="window.location.href='fetch_teams_by_league.php?league=LPL';"><img src="images/cn.png" alt="cn Flag">LPL</button>
     <button class="country-button" id="country2" onclick="window.location.href='fetch_teams_by_league.php?league=LCK';"><img src="images/kr.png" alt="kr Flag">LCK</button>
@@ -50,8 +53,10 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
     <?php if ($is_admin): ?>
         <button onclick="window.location.href = 'delete_player.php';">Remove Player</button>
     <?php endif; ?>
+    <button onclick="location.href='update_player.php';">Update Player</button>
     <button onclick="window.location.href = 'profile.php';">Account Profile</button>
     <button onclick="window.location.href = 'logout.php';">Logout</button>
+    <button onclick="window.location.href='export_players.php'">Export Players to CSV</button>
     <!-- Player Table -->
     <table>
         <thead>
@@ -86,5 +91,4 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
     </table>
 </main>
 
-</body>
 </html>
