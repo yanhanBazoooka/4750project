@@ -1,6 +1,14 @@
 <?php
 include('includes/header.php');
 include('includes/connect-db.php');
+session_start(); // Ensure session is started to access session variables
+
+if (!isset($_SESSION['user_role'])) {
+    header('Location: login.php'); // Redirect to login if no role is set
+    exit();
+}
+
+$is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for admins
 ?>
 
 <!DOCTYPE html>
@@ -23,26 +31,25 @@ include('includes/connect-db.php');
 <div id="league-selector">
 </div>
 
-
-
-
 <div id="search-bar">
     <input type="text" placeholder="Search for player, team, game...">
     <button type="submit">Search</button>
 </div>
 <div id="country-bar">
-    <button class="country-button" id="country1"><img src="images/cn.png" alt="cn Flag">LPL</button>
-    <button class="country-button" id="country2"><img src="images/kr.png" alt=" kr Flag">LCK</button>
-    <button class="country-button" id="country3"><img src="images/eu.jpg" alt="eu Flag">LEC</button>
-    <button class="country-button" id="country4"><img src="images/us.png" alt="us Flag">LCS</button>
-    <button class="country-button" id="country5"><img src="images/viet.png" alt="viet Flag">VCS</button>
-    <button class="country-button" id="country6"><img src="images/world.jpg" alt="world Flag">Others</button>
+    <button class="country-button" id="country1" onclick="window.location.href='fetch_teams_by_league.php?league=LPL';"><img src="images/cn.png" alt="cn Flag">LPL</button>
+    <button class="country-button" id="country2" onclick="window.location.href='fetch_teams_by_league.php?league=LCK';"><img src="images/kr.png" alt="kr Flag">LCK</button>
+    <button class="country-button" id="country3" onclick="window.location.href='fetch_teams_by_league.php?league=LEC';"><img src="images/eu.jpg" alt="eu Flag">LEC</button>
+    <button class="country-button" id="country4" onclick="window.location.href='fetch_teams_by_league.php?league=LCS';"><img src="images/us.png" alt="us Flag">LCS</button>
+    <button class="country-button" id="country5" onclick="window.location.href='fetch_teams_by_league.php?league=VCS';"><img src="images/viet.png" alt="viet Flag">VCS</button>
+    <button class="country-button" id="country6" onclick="window.location.href='fetch_teams_by_league.php?league=Others';"><img src="images/world.jpg" alt="world Flag">Others</button>
 </div>
 
 <main>
     <h2>Player List</h2>
     <button onclick="window.location.href = 'add-player.php';">Add New Player</button>
-    <button onclick="window.location.href = 'delete_data.php';">Remove Player</button>
+    <?php if ($is_admin): ?>
+        <button onclick="window.location.href = 'delete_player.php';">Remove Player</button>
+    <?php endif; ?>
     <button onclick="window.location.href = 'profile.php';">Account Profile</button>
     <button onclick="window.location.href = 'logout.php';">Logout</button>
     <!-- Player Table -->
@@ -79,9 +86,5 @@ include('includes/connect-db.php');
     </table>
 </main>
 
-
 </body>
-    <img src="images/lol.png" alt="Description" id="top-left-image">
-
 </html>
-

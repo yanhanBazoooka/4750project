@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!-- Form for adding a new player -->
-<form action="delete_data.php" method="post">
+<form action="delete_player.php" method="post">
     <label for="PlayerID">PlayerID:</label>
     <input type="text" id="PlayerID" name="PlayerID" required>
 
