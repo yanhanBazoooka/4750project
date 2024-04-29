@@ -82,11 +82,12 @@ $is_admin = ($_SESSION['user_role'] == 2);
 <main>
     <h2>Player List</h2>
     <button onclick="window.location.href = 'add-player.php';">Add New Player</button>
+
+    <button onclick="location.href='update_player.php';">Update Player</button>
+    <button onclick="window.location.href='export_players.php'">Export Players to CSV</button>
     <?php if ($is_admin): ?>
         <button onclick="window.location.href = 'delete_player.php';">Remove Player</button>
     <?php endif; ?>
-    <button onclick="location.href='update_player.php';">Update Player</button>
-    <button onclick="window.location.href='export_players.php'">Export Players to CSV</button>
     <!-- Player Table -->
     <table>
         <thead>
@@ -122,11 +123,12 @@ $is_admin = ($_SESSION['user_role'] == 2);
     <h2>Champion List</h2>
 <?php ?>
     <button onclick="window.location.href = 'add-champion.php';">Add New Champion</button>
+
     <button onclick="location.href='update-champion.php';">Update Champion</button>
+    <button onclick="window.location.href='export-champions.php'">Export Champions to CSV</button>
     <?php if ($is_admin): ?>
         <button onclick="window.location.href = 'delete-champion.php';">Remove Champion</button>
     <?php endif; ?>
-    <button onclick="window.location.href='export-champions.php'">Export Champions to CSV</button>
 <?php ?>
 <table>
     <thead>
@@ -157,12 +159,13 @@ $is_admin = ($_SESSION['user_role'] == 2);
 <h2>Equipment List</h2>
 <?php ?>
     <button onclick="window.location.href = 'add-equipment.php';">Add New Equipment</button>
+
+    <button onclick="location.href='update-equipment.php';">Update Equipment</button>
+    <button onclick="window.location.href='export-equipment.php'">Export Equipment to CSV</button>
     <?php if ($is_admin): ?>
         <button onclick="window.location.href = 'delete-equipment.php';">Remove Equipment</button>
 
     <?php endif; ?>
-    <button onclick="location.href='update-equipment.php';">Update Equipment</button>
-    <button onclick="window.location.href='export-equipment.php'">Export Equipment to CSV</button>
 <?php ?>
 <table>
     <thead>
@@ -190,11 +193,12 @@ $is_admin = ($_SESSION['user_role'] == 2);
 
 <h2>Coach List</h2>
 <button onclick="window.location.href = 'add-coach.php';">Add New Coach</button>
-<?php if ($is_admin): ?>
-    <button onclick="window.location.href = 'delete-coach.php';">Remove Coach</button>
-<?php endif; ?>
+
 <button onclick="location.href='update-coach.php';">Update Coach</button>
 <button onclick="window.location.href='export-coaches.php'">Export Coaches to CSV</button>
+    <?php if ($is_admin): ?>
+        <button onclick="window.location.href = 'delete-coach.php';">Remove Coach</button>
+    <?php endif; ?>
 
 <table>
     <thead>
