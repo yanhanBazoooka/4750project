@@ -1,72 +1,98 @@
 -- Create the tables within the league_tracker database
 CREATE TABLE League (
-    LeagueName VARCHAR(100) PRIMARY KEY,
-    NumberOfTeams INT
+                        LeagueName VARCHAR(100) PRIMARY KEY,
+                        NumberOfTeams INT
 );
 
 CREATE TABLE Tournament (
-    TournamentName VARCHAR(100) PRIMARY KEY,
-    Prize DECIMAL(10,2)
+                            TournamentName VARCHAR(100) PRIMARY KEY,
+                            Prize DECIMAL(10,2)
 );
 
 CREATE TABLE Coach (
-    CoachName VARCHAR(100) PRIMARY KEY,
-    Nationality VARCHAR(100)
+                       CoachName VARCHAR(100) PRIMARY KEY,
+                       Nationality VARCHAR(100)
 );
 
 CREATE TABLE Equipment (
-    EquipmentName VARCHAR(100) PRIMARY KEY,
-    Cost DECIMAL(10,2)
+                           EquipmentName VARCHAR(100) PRIMARY KEY,
+                           Cost DECIMAL(10,2)
 );
 
 CREATE TABLE Player (
-    PlayerID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100),
-    Position VARCHAR(50),
-    MostUsedChampion VARCHAR(100),
-    Age INT,
-    Nationality VARCHAR(100),
-    WinRate DECIMAL(5,2) CHECK (WinRate >= 0 AND WinRate <= 1) -- Check constraint for WinRate
+                        PlayerID INT PRIMARY KEY,
+                        Name VARCHAR(100),
+                        Position VARCHAR(50),
+                        MostUsedChampion VARCHAR(100),
+                        Age INT,
+                        Nationality VARCHAR(100),
+                        WinRate DECIMAL(5,2) CHECK (WinRate >= 0 AND WinRate <= 1) -- Check constraint for WinRate
 );
 
 CREATE TABLE Champion (
-    ChampionName VARCHAR(100) PRIMARY KEY,
-    GamesPlayed INT,
-    WinRate DECIMAL(5,2) CHECK (WinRate >= 0 AND WinRate <= 1) -- Check constraint for WinRate
+                          ChampionName VARCHAR(100) PRIMARY KEY,
+                          GamesPlayed INT,
+                          WinRate DECIMAL(5,2) CHECK (WinRate >= 0 AND WinRate <= 1) -- Check constraint for WinRate
 );
 
 CREATE TABLE Sponsor (
-    SponsorName VARCHAR(100) PRIMARY KEY,
-    Industry VARCHAR(100),
-    Country VARCHAR(100)
+                         SponsorName VARCHAR(100) PRIMARY KEY,
+                         Industry VARCHAR(100),
+                         Country VARCHAR(100)
 );
 
 CREATE TABLE Team (
-    TeamName VARCHAR(100) PRIMARY KEY,
-    LeagueName VARCHAR(100),
-    WinRate DECIMAL(5,2) CHECK (WinRate >= 0 AND WinRate <= 1),
-    Rank INT,
-    FOREIGN KEY (LeagueName) REFERENCES League(LeagueName)
+                      TeamName VARCHAR(100) PRIMARY KEY,
+                      LeagueName VARCHAR(100),
+                      WinRate DECIMAL(5,2) CHECK (WinRate >= 0 AND WinRate <= 1),
+                      Rank INT,
+                      FOREIGN KEY (LeagueName) REFERENCES League(LeagueName)
 );
-
-CREATE TABLE roles (
-                       id INT AUTO_INCREMENT PRIMARY KEY,
-                       role_name VARCHAR(50) NOT NULL
-);
-
 
 -- Create a trigger to enforce the Rank to be lower than the number of teams in the league
 DELIMITER $$
 CREATE TRIGGER CheckRankBeforeInsert BEFORE INSERT ON Team
-FOR EACH ROW
+    FOR EACH ROW
 BEGIN
     DECLARE teamCount INT;
     SET teamCount = (SELECT NumberOfTeams FROM League WHERE LeagueName = NEW.LeagueName);
     IF NEW.Rank >= teamCount THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Rank must be lower than NumberOfTeams for the corresponding league';
-    END IF;
+END IF;
 END$$
 DELIMITER ;
+
+-- Create the Endorse table
+CREATE TABLE Endorse (
+                         SponsorName VARCHAR(100),
+                         TeamName VARCHAR(100),
+                         Price DECIMAL(10, 2),
+                         PRIMARY KEY (SponsorName, TeamName),
+                         FOREIGN KEY (SponsorName) REFERENCES Sponsor(SponsorName) ON DELETE CASCADE
+);
+
+-- Create the Plays table
+CREATE TABLE Plays (
+                       PlayerID INT,
+                       ChampionName VARCHAR(100),
+                       PRIMARY KEY (PlayerID, ChampionName),
+                       FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
+);
+
+-- Create the Uses table
+CREATE TABLE Uses (
+                      PlayerID INT,
+                      EquipmentName VARCHAR(100),
+                      PRIMARY KEY (PlayerID, EquipmentName),
+                      FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
+                      FOREIGN KEY (EquipmentName) REFERENCES Equipment(EquipmentName)
+);
+
+CREATE TABLE users (
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       email VARCHAR(255) UNIQUE NOT NULL,
+                       role_id INT NOT NULL
+);
 
 -- Example of data retrievals:
 
@@ -86,116 +112,196 @@ SELECT * FROM Team WHERE TeamName = 'T1';
 SELECT * FROM Tournament WHERE Prize > 1000000;
 
 INSERT INTO Champion (ChampionName, GamesPlayed, WinRate)
-VALUES 
-  ('Lee Sin', 300, 0.50),
-  ('Ezreal', 420, 0.53),
-  ('Senna', 215, 0.56),
-  ('Kaisa', 390, 0.51),
-  ('Yasuo', 180, 0.48),
-  ('Akali', 290, 0.55),
-  ('Ornn', 150, 0.61),
-  ('Zoe', 320, 0.47),
-  ('Thresh', 400, 0.49),
-  ('Fiora', 250, 0.52);
+VALUES
+    ('Lee Sin', 300, 0.50),
+    ('Ezreal', 420, 0.53),
+    ('Senna', 215, 0.56),
+    ('Kaisa', 390, 0.51),
+    ('Yasuo', 180, 0.48),
+    ('Akali', 290, 0.55),
+    ('Ornn', 150, 0.61),
+    ('Zoe', 320, 0.47),
+    ('Thresh', 400, 0.49),
+    ('Fiora', 250, 0.52);
 
 
 
 INSERT INTO Coach (CoachName, Nationality)
-VALUES 
-  ('Reapered', 'Korea'),
-  ('Kkoma', 'Korea'),
-  ('Youngbuck', 'Netherlands'),
-  ('Zaboutine', 'France'),
-  ('Prolly', 'USA'),
-  ('Parth', 'USA'),
-  ('Mithy', 'Spain'),
-  ('GrabbZ', 'Germany'),
-  ('Homme', 'Korea'),
-  ('Cain', 'Korea');
+VALUES
+    ('Reapered', 'Korea'),
+    ('Kkoma', 'Korea'),
+    ('Youngbuck', 'Netherlands'),
+    ('Zaboutine', 'France'),
+    ('Prolly', 'USA'),
+    ('Parth', 'USA'),
+    ('Mithy', 'Spain'),
+    ('GrabbZ', 'Germany'),
+    ('Homme', 'Korea'),
+    ('Cain', 'Korea');
 
 
 
 
 
 INSERT INTO Equipment (EquipmentName, Cost)
-VALUES 
-  ('Logitech G Pro Wireless Mouse', 130),
-  ('Corsair K95 RGB Keyboard', 200),
-  ('Razer DeathAdder Mouse', 70),
-  ('SteelSeries Apex Pro Keyboard', 180),
-  ('HyperX Pulsefire FPS Mouse', 60),
-  ('Razer BlackWidow Keyboard', 140),
-  ('Logitech G502 Hero Mouse', 50),
-  ('Corsair K70 RGB MK.2 Keyboard', 160),
-  ('SteelSeries Rival 600 Mouse', 80),
-  ('HyperX Alloy FPS Keyboard', 100);
+VALUES
+    ('Logitech G Pro Wireless Mouse', 130),
+    ('Corsair K95 RGB Keyboard', 200),
+    ('Razer DeathAdder Mouse', 70),
+    ('SteelSeries Apex Pro Keyboard', 180),
+    ('HyperX Pulsefire FPS Mouse', 60),
+    ('Razer BlackWidow Keyboard', 140),
+    ('Logitech G502 Hero Mouse', 50),
+    ('Corsair K70 RGB MK.2 Keyboard', 160),
+    ('SteelSeries Rival 600 Mouse', 80),
+    ('HyperX Alloy FPS Keyboard', 100);
 
 INSERT INTO League (LeagueName, NumberOfTeams)
-VALUES 
-  ('LCS', 10),
-  ('LEC', 10),
-  ('LCK', 10),
-  ('LPL', 16),
-  ('CBLOL', 8),
-  ('LJL', 8),
-  ('OPL', 8),
-  ('LCL', 8),
-  ('TCL', 10),
-  ('PCS', 10);
+VALUES
+    ('LCS', 10),
+    ('LEC', 10),
+    ('LCK', 10),
+    ('LPL', 16),
+    ('CBLOL', 8),
+    ('LJL', 8),
+    ('OPL', 8),
+    ('LCL', 8),
+    ('TCL', 10),
+    ('PCS', 10);
 
 
 INSERT INTO Player (PlayerID, Name, Position, MostUsedChampion, Age, Nationality, WinRate)
-VALUES 
-  (101, 'Faker', 'Mid', 'LeBlanc', 24, 'Korea', 0.63),
-  (102, 'Doublelift', 'ADC', 'Lucian', 27, 'USA', 0.57),
-  (103, 'Caps', 'Mid', 'Zoe', 21, 'Denmark', 0.60),
-  (104, 'Rekkles', 'ADC', 'Sivir', 25, 'Sweden', 0.59),
-  (105, 'Jankos', 'Jungle', 'Lee Sin', 26, 'Poland', 0.58),
-  (106, 'Bwipo', 'Top', 'Gangplank', 22, 'Belgium', 0.55),
-  (107, 'Perkz', 'Mid', 'Yasuo', 22, 'Croatia', 0.61),
-  (108, 'Deft', 'ADC', 'Varus', 24, 'Korea', 0.62),
-  (109, 'SwordArt', 'Support', 'Thresh', 23, 'Taiwan', 0.60),
-  (110, 'Nuguri', 'Top', 'Akali', 21, 'Korea', 0.59);
+VALUES
+    (101, 'Faker', 'Mid', 'LeBlanc', 24, 'Korea', 0.63),
+    (102, 'Doublelift', 'ADC', 'Lucian', 27, 'USA', 0.57),
+    (103, 'Caps', 'Mid', 'Zoe', 21, 'Denmark', 0.60),
+    (104, 'Rekkles', 'ADC', 'Sivir', 25, 'Sweden', 0.59),
+    (105, 'Jankos', 'Jungle', 'Lee Sin', 26, 'Poland', 0.58),
+    (106, 'Bwipo', 'Top', 'Gangplank', 22, 'Belgium', 0.55),
+    (107, 'Perkz', 'Mid', 'Yasuo', 22, 'Croatia', 0.61),
+    (108, 'Deft', 'ADC', 'Varus', 24, 'Korea', 0.62),
+    (109, 'SwordArt', 'Support', 'Thresh', 23, 'Taiwan', 0.60),
+    (110, 'Nuguri', 'Top', 'Akali', 21, 'Korea', 0.59),
+    (111, 'Uzi', 'ADC', 'KaiSa', 25, 'China', 0.65),
+    (112, 'Bjergsen', 'Mid', 'Syndra', 25, 'Denmark', 0.58),
+    (113, 'Bdd', 'Mid', 'LeBlanc', 24, 'Korea', 0.62),
+    (114, 'Clearlove', 'Jungle', 'Elise', 28, 'China', 0.56),
+    (115, 'Perkz2', 'ADC', 'Ezreal', 23, 'Croatia', 0.60),
+    (116, 'Huni', 'Top', 'Rumble', 24, 'Korea', 0.57),
+    (117, 'Biofrost', 'Support', 'Braum', 24, 'Canada', 0.59),
+    (118, 'Bang', 'ADC', 'Jhin', 25, 'Korea', 0.59),
+    (119, 'Mata', 'Support', 'Alistar', 28, 'Korea', 0.56),
+    (120, 'Faker3', 'Mid', 'Syndra', 25, 'Korea', 0.63),
+    (121, 'Doinb', 'Mid', 'Galio', 25, 'China', 0.60),
+    (122, 'Smeb', 'Top', 'Riven', 27, 'Korea', 0.57),
+    (123, 'Xiaohu', 'Mid', 'Ryze', 24, 'China', 0.61),
+    (124, 'JackeyLove', 'ADC', 'KaiSa', 20, 'China', 0.64),
+    (125, 'Clid', 'Jungle', 'Graves', 23, 'Korea', 0.58),
+    (126, 'Rookie', 'Mid', 'Orianna', 22, 'China', 0.62),
+    (127, 'Karsa', 'Jungle', 'Lee Sin', 23, 'Taiwan', 0.57),
+    (128, 'ShowMaker', 'Mid', 'Akali', 20, 'Korea', 0.65),
+    (129, 'Hylissang', 'Support', 'Pyke', 25, 'Romania', 0.59),
+    (130, 'Chovy', 'Mid', 'Azir', 20, 'Korea', 0.63),
+    (131, 'Ruler', 'ADC', 'Ezreal', 22, 'Korea', 0.60),
+    (132, 'Canyon', 'Jungle', 'Nidalee', 21, 'Korea', 0.64),
+    (133, 'Carzzy', 'ADC', 'Samira', 20, 'Slovenia', 0.58),
+    (134, 'BeryL', 'Support', 'Thresh', 23, 'Korea', 0.61),
+    (135, 'GALA', 'ADC', 'Aphelios', 20, 'China', 0.63),
+    (136, 'Ning', 'Jungle', 'Zac', 24, 'China', 0.57);
 
 
 INSERT INTO Sponsor (SponsorName, Industry, Country)
-VALUES 
-  ('Red Bull', 'Beverage', 'Austria'),
-  ('Samsung Electronics', 'Electronics', 'South Korea'),
-  ('Logitech', 'Computer Peripherals', 'Switzerland'),
-  ('Intel', 'Semiconductor', 'USA'),
-  ('Nike', 'Apparel', 'USA'),
-  ('T-Mobile', 'Telecommunications', 'USA'),
-  ('Audi', 'Automotive', 'Germany'),
-  ('Cisco', 'Networking Equipment', 'USA'),
-  ('Alienware', 'Computer Hardware', 'USA'),
-  ('BMW', 'Automotive', 'Germany');
+VALUES
+    ('Red Bull', 'Beverage', 'Austria'),
+    ('Samsung Electronics', 'Electronics', 'South Korea'),
+    ('Logitech', 'Computer Peripherals', 'Switzerland'),
+    ('Intel', 'Semiconductor', 'USA'),
+    ('Nike', 'Apparel', 'USA'),
+    ('T-Mobile', 'Telecommunications', 'USA'),
+    ('Audi', 'Automotive', 'Germany'),
+    ('Cisco', 'Networking Equipment', 'USA'),
+    ('Alienware', 'Computer Hardware', 'USA'),
+    ('BMW', 'Automotive', 'Germany');
 
 INSERT INTO Tournament (TournamentName, Prize)
-VALUES 
-  ('World Championship 2024', 2500000),
-  ('Mid-Season Invitational 2024', 1000000),
-  ('LEC Summer 2024', 500000),
-  ('LCS Spring 2024', 500000),
-  ('LCK Summer 2024', 800000),
-  ('LPL Spring 2024', 800000),
-  ('CBLOL Split 2 2024', 200000),
-  ('LJL Summer 2024', 150000),
-  ('OPL Split 1 2024', 100000),
-  ('PCS Summer 2024', 300000);
+VALUES
+    ('World Championship 2024', 2500000),
+    ('Mid-Season Invitational 2024', 1000000),
+    ('LEC Summer 2024', 500000),
+    ('LCS Spring 2024', 500000),
+    ('LCK Summer 2024', 800000),
+    ('LPL Spring 2024', 800000),
+    ('CBLOL Split 2 2024', 200000),
+    ('LJL Summer 2024', 150000),
+    ('OPL Split 1 2024', 100000),
+    ('PCS Summer 2024', 300000);
 
 INSERT INTO Team (TeamName, LeagueName, WinRate, Rank)
-VALUES 
-  ('T1', 'LCK', 0.70, 1),
-  ('G2 Esports', 'LEC', 0.65, 2),
-  ('Fnatic', 'LEC', 0.60, 3),
-  ('Cloud9', 'LCS', 0.63, 1),
-  ('Team Liquid', 'LCS', 0.59, 2),
-  ('JD Gaming', 'LPL', 0.68, 1),
-  ('Top Esports', 'LPL', 0.65, 2),
-  ('DRX', 'LCK', 0.55, 4),
-  ('MAD Lions', 'EU LEC', 0.58, 4),
-  ('100 Thieves', 'NA LCS', 0.61, 3);
+VALUES
+    ('T1', 'LCK', 0.70, 1),
+    ('G2 Esports', 'LEC', 0.65, 2),
+    ('Fnatic', 'LEC', 0.60, 3),
+    ('Cloud9', 'LCS', 0.63, 1),
+    ('Team Liquid', 'LCS', 0.59, 2),
+    ('JD Gaming', 'LPL', 0.68, 1),
+    ('Top Esports', 'LPL', 0.65, 2),
+    ('DRX', 'LCK', 0.55, 4),
+    ('MAD Lions', 'LEC', 0.58, 4),
+    ('100 Thieves', 'LCS', 0.61, 3),
+    ('SK Telecom T1', 'LCK', 0.70, 1),
+    ('Samsung Galaxy', 'LCK', 0.65, 2),
+    ('KT Rolster', 'LCK', 0.60, 3),
+    ('Afreeca Freecs', 'LCK', 0.58, 4),
+    ('Rogue', 'LEC', 0.62, 2),
+    ('Schalke 04', 'LEC', 0.57, 3),
+    ('Team SoloMid', 'LCS', 0.68, 1),
+    ('Golden Guardians', 'LCS', 0.62, 2),
+    ('Evil Geniuses', 'LCS', 0.58, 3);
+
+INSERT INTO Endorse (SponsorName, TeamName, Price)
+VALUES
+    ('Intel', 'T1', 600000),
+    ('Samsung Electronics', 'G2 Esports', 400000),
+    ('Logitech', 'Fnatic', 800000),
+    ('Audi', 'Gen.G', 550000),
+    ('T-Mobile', 'Cloud9', 350000),
+    ('Red Bull', 'JD Gaming', 450000),
+    ('Nike', 'Top Esports', 750000),
+    ('Cisco', 'DRX', 500000),
+    ('BMW', 'MAD Lions', 400000),
+    ('Alienware', 'Team Liquid', 300000);
+
+INSERT INTO Plays (PlayerID, ChampionName)
+VALUES
+    (101, 'LeBlanc'),
+    (102, 'Lucian'),
+    (103, 'Zoe'),
+    (104, 'Sivir'),
+    (105, 'Lee Sin'),
+    (106, 'Gangplank'),
+    (107, 'Yasuo'),
+    (108, 'Varus'),
+    (109, 'Thresh'),
+    (110, 'Akali'),
+    (111, 'Kai''Sa'),
+    (112, 'Syndra'),
+    (113, 'Galio'),
+    (114, 'Riven'),
+    (115, 'Ryze');
+
+
+INSERT INTO Uses (PlayerID, EquipmentName)
+VALUES
+    (101, 'Logitech G Pro Wireless Mouse'),
+    (101, 'Corsair K95 RGB Keyboard'),
+    (102, 'Razer DeathAdder Mouse'),
+    (102, 'SteelSeries Apex Pro Keyboard'),
+    (103, 'HyperX Pulsefire FPS Mouse'),
+    (103, 'Razer BlackWidow Keyboard'),
+    (104, 'Logitech G502 Hero Mouse'),
+    (104, 'Corsair K70 RGB MK.2 Keyboard'),
+    (105, 'SteelSeries Rival 600 Mouse'),
+    (105, 'HyperX Alloy FPS Keyboard');
 
 UPDATE Player
 SET Age = 25
@@ -216,18 +322,3 @@ WHERE EquipmentName = 'Logitech G Pro Wireless Mouse';
 UPDATE Coach
 SET Nationality = 'South Korea'
 WHERE CoachName = 'Reapered';
-
-DELETE FROM Player
-WHERE Name = 'Doublelift';
-
-DELETE FROM Tournament
-WHERE TournamentName = 'OPL Split 1 2024';
-
-DELETE FROM Sponsor
-WHERE SponsorName = 'Cisco';
-
-DELETE FROM Equipment
-WHERE EquipmentName = 'SteelSeries Rival 600 Mouse';
-
-DELETE FROM Coach
-WHERE CoachName = 'Zaboutine';

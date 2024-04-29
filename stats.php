@@ -17,6 +17,33 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
     <meta charset="UTF-8">
     <title>League of Legend Pro Stats</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        #logo {
+            flex-grow: 1;
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Adds space between the buttons */
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .country-button img {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -24,9 +51,14 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
     <div id="logo">
         <img src="images/lol.png" alt="League of Legend Pro Stats Logo" />
     </div>
+    <div class="header-buttons">
+        <button onclick="window.location.href = 'profile.php';">Account Profile</button>
+        <button onclick="window.location.href = 'logout.php';">Logout</button>
+    </div>
     <nav id="section-nav">
     </nav>
 </header>
+
 
 <div id="league-selector">
 </div>
@@ -54,8 +86,6 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
         <button onclick="window.location.href = 'delete_player.php';">Remove Player</button>
     <?php endif; ?>
     <button onclick="location.href='update_player.php';">Update Player</button>
-    <button onclick="window.location.href = 'profile.php';">Account Profile</button>
-    <button onclick="window.location.href = 'logout.php';">Logout</button>
     <button onclick="window.location.href='export_players.php'">Export Players to CSV</button>
     <!-- Player Table -->
     <table>
