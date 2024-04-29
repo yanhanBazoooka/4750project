@@ -1,14 +1,14 @@
 <?php
 include('includes/header.php');
 include('includes/connect-db.php');
-session_start(); // Ensure session is started to access session variables
+session_start(); 
 
 if (!isset($_SESSION['user_role'])) {
-    header('Location: login.php'); // Redirect to login if no role is set
+    header('Location: login.php'); 
     exit();
 }
 
-$is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for admins
+$is_admin = ($_SESSION['user_role'] == 2); 
 ?>
 
 <!DOCTYPE html>
@@ -153,8 +153,7 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
         ?>
     </tbody>
 </table>
-<!-- End of Champion List Section -->
-<!-- Equipment List Section -->
+
 <h2>Equipment List</h2>
 <?php ?>
     <button onclick="window.location.href = 'add-equipment.php';">Add New Equipment</button>
@@ -170,7 +169,6 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
         <tr>
             <th>Equipment Name</th>
             <th>Cost</th>
-            <!-- Add additional headers if needed -->
         </tr>
     </thead>
     <tbody>
@@ -203,7 +201,6 @@ $is_admin = ($_SESSION['user_role'] == 2); // Assuming '2' is the role ID for ad
         <tr>
             <th>Coach Name</th>
             <th>Nationality</th>
-            <!-- Additional headers for other coach attributes if needed -->
         </tr>
     </thead>
     <tbody>
